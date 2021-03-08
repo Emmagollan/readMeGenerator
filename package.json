@@ -1,0 +1,19 @@
+{
+  "name": "readmegenerator",
+  "version": "1.0.0",
+  "description": "a generator that creates a README using Node.js",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Emmagollan/readMeGenerator.git"
+  },
+  "author": "Emma Gollan",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Emmagollan/readMeGenerator/issues"
+  },
+  "homepage": "https://github.com/Emmagollan/readMeGenerator#readme"
+}
