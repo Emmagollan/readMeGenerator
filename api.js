@@ -4,7 +4,7 @@ const api = {
   async getUser(userResponses) {
     try { let response = await axios
         
-      // Sample URL: https://api.github.com/users/connietran-dev
+      
         .get(`https://api.github.com/users/${userResponses.username}`);
         return response.data;
 

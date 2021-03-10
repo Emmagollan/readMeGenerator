@@ -1,33 +1,18 @@
 const inquirer = require('inquirer');
 const fs = require('fs');
 const util = require('util');
+const api = require('./api.js');
+const generateMarkdown = require('./generateMarkdown.js');
 
-// Internal modules
-const api = require('./utils/api.js');
-const generateMarkdown = require('./utils/generateMarkdown.js');
-
-// Inquirer prompts for userResponses
+// Inquirer prompts usewr
 const questions = [
     {
         type: 'input',
-        message: "What is your GitHub username? (No @ needed)",
+        message: "What is your Github username?",
         name: 'username',
-        default: 'connietran-dev',
         validate: function (answer) {
             if (answer.length < 1) {
-                return console.log("A valid GitHub username is required.");
-            }
-            return true;
-        }
-    },
-    {
-        type: 'input',
-        message: "What is the name of your GitHub repo?",
-        name: 'repo',
-        default: 'readme-generator',
-        validate: function (answer) {
-            if (answer.length < 1) {
-                return console.log("A valid GitHub repo is required for a badge.");
+                return console.log("Please enter your GitHub username.");
             }
             return true;
         }
@@ -36,10 +21,10 @@ const questions = [
         type: 'input',
         message: "What is the title of your project?",
         name: 'title',
-        default: 'Project Title',
+        default: 'Title',
         validate: function (answer) {
             if (answer.length < 1) {
-                return console.log("A valid project title is required.");
+                return console.log("Enter your title here.");
             }
             return true;
         }
@@ -48,37 +33,37 @@ const questions = [
         type: 'input',
         message: "Write a description of your project.",
         name: 'description',
-        default: 'Project Description',
+        default: 'Description',
         validate: function (answer) {
             if (answer.length < 1) {
-                return console.log("A valid project description is required.");
+                return console.log("Write a description of your project here.");
             }
             return true;
         }
     },
     {
         type: 'input',
-        message: "If applicable, describe the steps required to install your project for the Installation section.",
+        message: "What are the steps required for installation?",
         name: 'installation'
     },
     {
         type: 'input',
-        message: "Provide instructions and examples of your project in use for the Usage section.",
+        message: "Provide instructions and examples of use.",
         name: 'usage'
     },
     {
         type: 'input',
-        message: "If applicable, provide guidelines on how other developers can contribute to your project.",
+        message: "If you would like others to contribute, please provide guidlines here",
         name: 'contributing'
     },
     {
         type: 'input',
-        message: "If applicable, provide any tests written for your application and provide examples on how to run them.",
+        message: "If you created tests for your application, please provide examples on how to run them.",
         name: 'tests'
     },
     {
         type: 'list',
-        message: "Choose a license for your project.",
+        message: "Which license are you using.",
         choices: ['GNU AGPLv3', 'GNU GPLv3', 'GNU LGPLv3', 'Mozilla Public License 2.0', 'Apache License 2.0', 'MIT License', 'Boost Software License 1.0', 'The Unlicense'],
         name: 'license'
     }
@@ -90,27 +75,25 @@ function writeToFile(fileName, data) {
           return console.log(err);
         }
       
-        console.log("Success! Your README.md file has been generated")
+        console.log("Your README.md file has been generated")
     });
 }
 
 const writeFileAsync = util.promisify(writeToFile);
 
 
-// Main function
 async function init() {
     try {
 
         // Prompt Inquirer questions
         const userResponses = await inquirer.prompt(questions);
         console.log("Your responses: ", userResponses);
-        console.log("Thank you for your responses! Fetching your GitHub data next...");
     
-        // Call GitHub api for user info
+        // Call GitHub api for info
         const userInfo = await api.getUser(userResponses);
         console.log("Your GitHub user info: ", userInfo);
     
-        // Pass Inquirer userResponses and GitHub userInfo to generateMarkdown
+        // Pass responses to generateMarkdown
         console.log("Generating your README next...")
         const markdown = generateMarkdown(userResponses, userInfo);
         console.log(markdown);

@@ -1,123 +1,104 @@
 function generateMarkdown(userResponses, userInfo) {
 
-    // Generate Table of Contents conditionally based on userResponses
-    let draftToC = `## Table of Contents`;
   
-    if (userResponses.installation !== '') { draftToC += `
-    * [Installation](#installation)` };
+  let draftToC = `
+  ## Table of Contents`;
   
-    if (userResponses.usage !== '') { draftToC += `
-    * [Usage](#usage)` };
+  if (userResponses.installation !== '') { draftToC += `
+  * [Installation](#installation)` };
   
-    if (userResponses.contributing !== '') { draftToC += `
-    * [Contributing](#contributing)` };
+  if (userResponses.usage !== '') { draftToC += `
+  * [Usage](#usage)` };
   
-    if (userResponses.tests !== '') { draftToC += `
-    * [Tests](#tests)` };
+  if (userResponses.contributing !== '') { draftToC += `
+  * [Contributing](#contributing)` };
   
+  if (userResponses.tests !== '') { draftToC += `
+  * [Tests](#tests)` };
   
-    // Generate markdown for the top required portions of the README
-    let draftMarkdown = 
-    `# ${userResponses.title}
+  let draftMarkdown = 
+  `# ${userResponses.title}
   
-    ![Badge for GitHub repo top language](https://img.shields.io/github/languages/top/${userResponses.username}/${userResponses.repo}?style=flat&logo=appveyor) ![Badge for GitHub last commit](https://img.shields.io/github/last-commit/${userResponses.username}/${userResponses.repo}?style=flat&logo=appveyor)
+  ## Description 
     
-    Check out the badges hosted by [shields.io](https://shields.io/).
-    
-    
-    ## Description 
-    
-    *The what, why, and how:* 
-    
-    ${userResponses.description}
+  ${userResponses.description}
   
-    `
-  
-    // Add Table of Contents to markdown
-    draftMarkdown += draftToC;
+  `
+  // Add Table of Contents to markdown
+  draftMarkdown += draftToC;
    
-    // Add License section since License is required to Table of Contents
-    draftMarkdown += `
-    * [License](#license)`;
+  // Add License section since License is required to Table of Contents
+  draftMarkdown += `
+  * [License](#license)`;
     
-  
-    // Optional Installation section
-    if (userResponses.installation !== '') {
+  // Optional Installation section
+  if (userResponses.installation !== '') {
     
-    draftMarkdown +=
-    `
+  draftMarkdown +=
+  `
     
-    ## Installation
+  ## Installation
     
-    *Steps required to install project and how to get the development environment running:*
-    
-    ${userResponses.installation}`
+  ${userResponses.installation}`
     };
     
   
-    // Optional Usage section
-    if (userResponses.usage !== '') {
+  // Optional Usage section
+  if (userResponses.usage !== '') {
     
-    draftMarkdown +=
+  draftMarkdown +=
+  
+  `
     
-    `
+  ## Usage 
     
-    ## Usage 
-    
-    *Instructions and examples for use:*
-    
-    ${userResponses.usage}`
+  ${userResponses.usage}`
     };
     
     
-    // Optional Contributing section
-    if (userResponses.contributing !== '') {
-    `
+    // Contributing section
+  if (userResponses.contributing !== '') {
+  `
     
-    ## Contributing
+  ## Contributions
     
-    *If you would like to contribute it, you can follow these guidelines for how to do so.*
+  *If you would like to contribute, please follow these guidlines:*
     
-    ${userResponses.contributing}`
+  ${userResponses.contributing}`
     };
     
   
-    // Optional Tests section
-    if (userResponses.tests !== '') {
+  // Tests section
+  if (userResponses.tests !== '') {
     
-    draftMarkdown +=
-    `
+  draftMarkdown +=
+  `
     
-    ## Tests
+  ## Tests
     
-    *Tests for application and how to run them:*
-    
-    ${userResponses.tests}`
+  ${userResponses.tests}`
     };
   
   
     // License section is required
-    draftMarkdown +=
-    `
+  draftMarkdown +=
+  `
     
-    ## License
+  ## License
     
-    ${userResponses.license}
-    `;
+  ${userResponses.license}
+  `;
   
   
-    // Questions / About Developer section
-    let draftDev = 
-    `
-    ---
+  // Questions
+  let draftDev = 
+  `
     
-    ## Questions?
+  ## Questions?
     
-    ![Developer Profile Picture](${userInfo.avatar_url}) 
-    
-    For any questions, please contact me with the information below:
+  For any questions, please contact me with the information below:
    
-    GitHub: [@${userInfo.login}](${userInfo.url})
+  GitHub: [@${userInfo.login}](${userInfo.url})
     `;
   
     // If GitHub email is not null, add to Developer section
@@ -126,7 +107,7 @@ function generateMarkdown(userResponses, userInfo) {
     draftDev +=
     `
   
-    Email: ${userInfo.email}
+  Email: ${userInfo.email}
   
     `};
   
